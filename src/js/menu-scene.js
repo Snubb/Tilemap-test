@@ -6,7 +6,7 @@ class PreloadScene extends Phaser.Scene {
     create() {
         // Det går att göra så att input lyssnar på spelet
         // nu är det på scenen, därför behöver vi skapa input igen
-        this.keyObj = this.input.keyboard.addKey('W', true, false);
+        this.keyObjW = this.input.keyboard.addKey('W', true, false);
 
         // spelets config om vi behöver något från den, som width height
         // console.log(this.game.config)
@@ -25,7 +25,7 @@ class PreloadScene extends Phaser.Scene {
 
     // scenens uppdate metod, lyssnar på keyDown
     update() {
-        if (this.keyObj.isDown) {
+        if (this.keyObjW.isDown) {
             // resumera spelscenen
             this.scene.resume('PlayScene');
             // göm denna scen
