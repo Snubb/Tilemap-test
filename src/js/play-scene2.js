@@ -1,10 +1,10 @@
-class PlayScene extends Phaser.Scene {
+class PlayScene2 extends Phaser.Scene {
     constructor() {
-        super('PlayScene');
+        super('PlayScene2');
     }
 
     create() {
-        console.log("Launched PlayScene");
+        console.log("Launched PlayScene2");
         // variabel för att hålla koll på hur många gånger vi spikat oss själva
         this.spiked = 0;
 
@@ -27,7 +27,7 @@ class PlayScene extends Phaser.Scene {
 
         //Background
         this.background = map.createLayer('Background', tileset);
-        this.background2 = map.createLayer('Background2', tileset);
+        //this.background2 = map.createLayer('Background2', tileset);
 
         // Ladda lagret Platforms från tilemappen
         // och skapa dessa
@@ -117,11 +117,9 @@ class PlayScene extends Phaser.Scene {
         // exempel för att lyssna på events
         this.events.on('pause', function () {
             console.log('Play scene paused');
-            //this.scene.setVisible(false);
         });
         this.events.on('resume', function () {
             console.log('Play scene resumed');
-            //this.scene.launch();
         });
     }
 
@@ -132,9 +130,9 @@ class PlayScene extends Phaser.Scene {
         if (this.keyObjW.isDown) {
             // pausa nuvarande scen
             this.scene.pause();
-            //this.scene.setVisible(false);
             // starta menyscenene
             this.scene.launch('MenuScene');
+            this.scene.setVisible(false);
         }
 
         // följande kod är från det tutorial ni gjort tidigare
@@ -233,4 +231,4 @@ class PlayScene extends Phaser.Scene {
     }
 }
 
-export default PlayScene;
+export default PlayScene2;

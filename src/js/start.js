@@ -1,8 +1,12 @@
 import PlayScene from "./play-scene";
+import PlayScene2 from "./play-scene2";
+
+var lvl1trigger = false;
+var lvl2trigger = false;
 
 class PreloadScene extends Phaser.Scene {
     constructor() {
-        super('MenuScene');
+        super('StartScene');
     }
 
     create() {
@@ -16,7 +20,7 @@ class PreloadScene extends Phaser.Scene {
         // skapa texten för PAUSED
         // använder en font som laddats i base.njk från Google fonts
         // fixedW/H används för  att kunna centrera texten på skärmen
-        this.text = this.add.text(0, (this.game.config.height / 2) - 64, 'PAUSED', {
+        this.text = this.add.text(0, (this.game.config.height / 2) - 64, 'Start Screen', {
             fontFamily: '"Mochiy Pop P One"',
             fontSize: '64px',
             fill: '#ff0000',
@@ -25,29 +29,29 @@ class PreloadScene extends Phaser.Scene {
             fixedHeight: this.game.config.height,
         });
 
-        start_label = this.add.text(0, (this.game.config.height / 2) - 64, 'HOME', {
-            fontFamily: '"Mochiy Pop P One"',
-            fontSize: '64px',
-            fill: '#ff0000',
-            align: 'center',
-            fixedWidth: this.game.config.width,
-            fixedHeight: this.game.config.height,
+        var lvl1 = this.add.sprite(this.game.config.width / 2, (this.game.config.height / 2) + 64, 'spike').setInteractive();
+        var lvl2 = this.add.sprite(this.game.config.width / 2, (this.game.config.height / 2) + 128, 'player').setInteractive();
+
+        lvl1.on('pointerdown', function(pointer){
+            lvl1trigger = true;
+        });
+        lvl2.on('pointerdown', function(pointer){
+            lvl2trigger = true;
         });
     }
 
     // scenens uppdate metod, lyssnar på keyDown
     update() {
-        if (this.keyObjW.isDown) {
-            // resumera spelscenen
-            this.scene.resume('PlayScene');
-            // göm denna scen
+        //setVisible och launch fungerar enbart i update tror jag så därför använder jag trigger variablerna
+        if(lvl1trigger) {
+            lvl1trigger = false;
             this.scene.setVisible(false);
+            this.scene.launch('PlayScene')
         }
-        if (this.keyObjR.isDown) {
-            //this.scene.resume('PlayScene2');
-            //this.scene.setVisible('PlayScene', false);
-
+        if(lvl2trigger) {
+            lvl2trigger = false;
             this.scene.setVisible(false);
+            this.scene.launch('PlayScene2');
         }
     }
 }
